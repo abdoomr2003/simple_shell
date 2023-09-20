@@ -47,5 +47,7 @@ int main(int argc, char *argv[])
 				perror("fork");
 		} free(command);
 			num_loop++;
-			} return (0);
+			}
+			free(command);
+			 return (0);
 }

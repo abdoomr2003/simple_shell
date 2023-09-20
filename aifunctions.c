@@ -71,6 +71,7 @@ int execute_command(char *command, int num_loop, char *argv)
 	if (full_path == NULL)
 	{
 		handle_exist_error(num_loop, command, argv);
+		free(full_path);
 		return (127);
 	} child_pid = fork();
 	if (child_pid == -1)
