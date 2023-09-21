@@ -8,9 +8,7 @@
  */
 int main(int argc, char *argv[])
 {
-	int interactive;
-	int num_loop = 1, result;
-	int cmp;
+	int interactive, num_loop = 1, result, cmp;
 	char *command = NULL;
 	(void)argc;
 	interactive = isatty(0);
@@ -32,8 +30,10 @@ int main(int argc, char *argv[])
 				handle_exit();
 			} cmp = _strcmp(command, "env");
 		if (_strcmp(command, "env") == 0)
+		{
 			handle_env();
-		cmp = _strcmp(command, "clear");
+			continue;
+		} cmp = _strcmp(command, "clear");
 			if (cmp == 0)
 			{
 				free(command);
