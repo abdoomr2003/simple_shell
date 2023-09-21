@@ -43,7 +43,6 @@ char *_itoa(int num)
 		rem = num % 10;
 		str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
 		num = num / 10;
-		free(str);
 	}
 	str[i] = '\0';
 	reverse(str, i);
@@ -69,11 +68,10 @@ char *get_environment_variable(char *path_name)
 		if (cmp == 0 && environ[num][strlen(path_name)] == '=')
 		{
 			value_of_environment = (environ[num] + (strlen(path_name) + 1));
-			free(value_of_environment);
 			return (value_of_environment);
 		}
 	}
-	value_of_environment = NULL;
+
 	return (NULL);
 }
 /**
@@ -99,45 +97,43 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 		return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 /**
- * _strtok - Tokenize a string using a specified delimiter.
+ * my_strtok - Tokenize a string using a specified delimiter.
  * @str: The input string to be tokenized.
  * @delim: The delimiter used for tokenization.
  *
  * Return: The next token in the input str or NULL if there are no more tokens.
  */
-char *_strtok(char *str, const char *delim)
+char *my_strtok(char *str, const char *delim)
 {
+
 	static char *token_ptr;
 	char *token_start;
 
 	/* If str is provided, update the static pointer */
 	if (str)
 		token_ptr = str;
+
 	/* If the pointer is NULL, return NULL (no more tokens) */
 	if (!token_ptr)
 		return (NULL);
+
 	token_ptr = NULL;  /* Keeps track of the last token */
 	token_start = str;
+
 	token_ptr = NULL;
-	/* If str is not provided, continue tokenizing from the last position */
 	if (!str)
 		str = token_ptr;
-	/* Skip leading delimiters */
 	while (*token_ptr && strchr(delim, *token_ptr))
 		token_ptr++;
-	/* If we've reached the end of the string, return NULL */
 	if (*token_ptr == '\0')
 		return (NULL);
-	/* Find the end of the token */
 	token_start = token_ptr;
 	while (*token_ptr && !strchr(delim, *token_ptr))
 		token_ptr++;
-	/* If this is not the end of the str, replace the delim with a null char*/
 	if (*token_ptr != '\0')
 	{
 		*token_ptr = '\0';
 		token_ptr++;
-	/* If this is not the end of the str, replace the delim with a null char */
 	if (*str != '\0')
 	{
 		*str = '\0';
