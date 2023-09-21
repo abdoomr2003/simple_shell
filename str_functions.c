@@ -41,13 +41,8 @@ char *_strdup(char *str)
 	if (string == NULL)
 		return (NULL);
 	if (string != NULL)
-	{
 		for (i = 0 ; i <= l; i++)
-		{
 			string[i] = str[i];
-		}
-			free(string);
-	}
 	return (string);
 
 }
