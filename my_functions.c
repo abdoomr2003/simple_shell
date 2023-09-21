@@ -106,7 +106,7 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 char *my_strtok(char *str, const char *delim)
 {
 
-	static char *token_ptr = NULL;  /* Keeps track of the last token */
+	static char *token_ptr;
 	char *token_start;
 
 	/* If str is provided, update the static pointer */
@@ -117,8 +117,8 @@ char *my_strtok(char *str, const char *delim)
 	if (!token_ptr)
 		return NULL;
 
-	static char *token_ptr;  /* Keeps track of the last token */
-	char *token_start = str;
+	token_ptr = NULL;  /* Keeps track of the last token */
+	token_start = str;
 
 	token_ptr = NULL;
 	/* If str is not provided, continue tokenizing from the last position */
@@ -153,4 +153,5 @@ char *my_strtok(char *str, const char *delim)
 
 	return token_start;
 	}
+	return (NULL);
 }
