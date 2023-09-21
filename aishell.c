@@ -22,8 +22,7 @@ int main(int argc, char *argv[])
 			if (interactive)
 			write(STDOUT_FILENO, "\n", _strlen("\n"));
 			break;
-		}
-		cmp = _strcmp(command, "exit");
+		} cmp = _strcmp(command, "exit");
 			if (_strcmp(command, "exit") == 0)
 			{
 				free(command);
@@ -37,8 +36,8 @@ int main(int argc, char *argv[])
 		} cmp = _strcmp(command, "clear");
 			if (cmp == 0)
 			{
-				free(command);
 				write(STDOUT_FILENO, "\033[H\033[J", 6);
+				free(command);
 				continue;
 			} else
 		{
