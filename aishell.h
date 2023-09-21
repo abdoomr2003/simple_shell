@@ -22,8 +22,10 @@ int _strcmp(char *s1, char *s2);
 int _strncmp(const char *s1, const char *s2, size_t n);
 
 
+
 /*my function*/
 char *_itoa(int num);
+char *_strtok(char *str, const char *delim);
 
 extern char *value_of_environment;
 extern char **environ;

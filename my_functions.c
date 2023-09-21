@@ -95,3 +95,42 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 	else
 		return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
+/**
+ * my_strtok - Tokenize a string using a specified delimiter.
+ * @str: The input string to be tokenized.
+ * @delim: The delimiter used for tokenization.
+ *
+ * Return: The next token in the input string or NULL if there are no more tokens.
+ */
+char *_strtok(char *str, const char *delim)
+{
+	static char *token_ptr = NULL;  /* Keeps track of the last token */
+	char *token_start = str;
+
+	/* If str is not provided, continue tokenizing from the last position */
+	if (!str)
+		str = token_ptr;
+
+	/* Skip leading delimiters */
+	while (*str && strchr(delim, *str))
+		str++;
+
+	/* If we've reached the end of the string, return NULL */
+	if (*str == '\0')
+		return (NULL);
+
+	/* Find the end of the token */
+	while (*str && !strchr(delim, *str))
+		str++;
+
+	/* If this is not the end of the string, replace the delimiter with a null character */
+	if (*str != '\0') {
+		*str = '\0';
+		str++;
+	}
+
+	/* Update the static pointer for the next call */
+	token_ptr = str;
+
+	return (token_start);
+}
