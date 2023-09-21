@@ -22,8 +22,7 @@ int main(int argc, char *argv[])
 			if (interactive)
 			write(STDOUT_FILENO, "\n", _strlen("\n"));
 			break;
-		}
-		cmp = _strcmp(command, "exit");
+		} cmp = _strcmp(command, "exit");
 			if (_strcmp(command, "exit") == 0)
 			{
 				free(command);
