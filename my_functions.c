@@ -68,6 +68,7 @@ char *get_environment_variable(char *path_name)
 		if (cmp == 0 && environ[num][strlen(path_name)] == '=')
 		{
 			value_of_environment = (environ[num] + (strlen(path_name) + 1));
+			free (value_of_environment);
 			return (value_of_environment);
 		}
 	}
@@ -103,7 +104,7 @@ int _strncmp(const char *s1, const char *s2, size_t n)
  *
  * Return: The next token in the input str or NULL if there are no more tokens.
  */
-char *my_strtok(char *str, const char *delim)
+char *_strtok(char *str, const char *delim)
 {
 	static char *token_ptr;
 	char *token_start;

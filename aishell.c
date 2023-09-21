@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
 			{
 				free(command);
 				handle_exit();
+				continue;
 			} cmp = _strcmp(command, "env");
 		if (_strcmp(command, "env") == 0)
 		{

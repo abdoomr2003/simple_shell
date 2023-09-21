@@ -89,6 +89,10 @@ int execute_command(char *command, int num_loop, char *argv)
 			free(full_path);
 			_exit(127);
 		}
+		free(exec_args[0]);
+		free(exec_args[1]);
+		free(full_path);
+		return (0);
 	} else if (child_pid > 0)
 	{
 		if (waitpid(child_pid, &status, 0) == -1)
@@ -97,7 +101,10 @@ int execute_command(char *command, int num_loop, char *argv)
 			free(full_path);
 			_exit(-1);
 		} else if (WIFEXITED(status))
+		{
+			free(full_path);
 			child_exit = WEXITSTATUS(status);
+		}
 	}
 	free(full_path);
 	return (child_exit);
@@ -112,7 +119,7 @@ int execute_command(char *command, int num_loop, char *argv)
 char *find_path(char *command)
 {
 	char *path_value = get_environment_variable("PATH");
-	char *path_copy, *path_token, *full_path = NULL;
+	char *path_copy = NULL, *path_token = NULL, *full_path = NULL;
 
 	if (command == NULL || path_value == NULL)
 		return (NULL);
