@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
 		if (_strcmp(command, "env") == 0)
 		{
 			handle_env();
+			free(command);
 			continue;
 		} cmp = _strcmp(command, "clear");
 			if (cmp == 0)
