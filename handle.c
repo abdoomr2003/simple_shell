@@ -4,7 +4,6 @@
 */
 void handle_exit(void)
 {
-	write(STDOUT_FILENO, "\n", _strlen("\n"));
 	exit(EXIT_SUCCESS);
 }
 /**
