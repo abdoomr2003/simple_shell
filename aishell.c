@@ -30,8 +30,7 @@ int main(int argc, char *argv[])
 			{
 				free(command);
 				handle_exit();
-			}
-		cmp = _strcmp(command, "env");
+			} cmp = _strcmp(command, "env");
 		if (_strcmp(command, "env") == 0)
 			handle_env();
 		cmp = _strcmp(command, "clear");
@@ -47,5 +46,6 @@ int main(int argc, char *argv[])
 				perror("fork");
 		} free(command);
 			num_loop++;
-			} return (0);
+			} free(command);
+			return (0);
 }

@@ -71,6 +71,7 @@ char *get_environment_variable(char *path_name)
 			return (value_of_environment);
 		}
 	}
+
 	return (NULL);
 }
 /**
