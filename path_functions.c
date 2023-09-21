@@ -35,7 +35,7 @@ char *search_in_path(char *command, char *path)
 	path_copy = _strdup(path);
 	if (path_copy == NULL)
 		return (NULL);
-	path_token = strtok(path_copy, ":");
+	path_token = _strtok(path_copy, ":");
 	while (path_token != NULL)
 	{
 		file_path_len = _strlen(path_token) + _strlen(command) + 2;
@@ -57,7 +57,7 @@ char *search_in_path(char *command, char *path)
 			return (file_path);
 		}
 
-		path_token = strtok(NULL, ":");
+		path_token = _strtok(NULL, ":");
 		free(file_path);
 	}
 	free(path_copy);

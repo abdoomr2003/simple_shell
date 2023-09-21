@@ -8,9 +8,7 @@
  */
 int main(int argc, char *argv[])
 {
-	int interactive;
-	int num_loop = 1, result;
-	int cmp;
+	int interactive, num_loop = 1, result, cmp;
 	char *command = NULL;
 	(void)argc;
 	interactive = isatty(0);
