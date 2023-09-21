@@ -43,6 +43,7 @@ char *_itoa(int num)
 		rem = num % 10;
 		str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
 		num = num / 10;
+		free(str);
 	}
 	str[i] = '\0';
 	reverse(str, i);
@@ -68,11 +69,11 @@ char *get_environment_variable(char *path_name)
 		if (cmp == 0 && environ[num][strlen(path_name)] == '=')
 		{
 			value_of_environment = (environ[num] + (strlen(path_name) + 1));
-			free (value_of_environment);
+			free(value_of_environment);
 			return (value_of_environment);
 		}
 	}
-
+	value_of_environment = NULL;
 	return (NULL);
 }
 /**
@@ -98,7 +99,7 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 		return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 /**
- * my_strtok - Tokenize a string using a specified delimiter.
+ * _strtok - Tokenize a string using a specified delimiter.
  * @str: The input string to be tokenized.
  * @delim: The delimiter used for tokenization.
  *

@@ -3,7 +3,6 @@
  * main - Entry point for the aishell program
  * @argc: The number of command-line arguments
  * @argv: An array of command-line argument strings
- *
  * Return: Always 0
  */
 int main(int argc, char *argv[])
@@ -27,7 +26,6 @@ int main(int argc, char *argv[])
 			{
 				free(command);
 				handle_exit();
-				continue;
 			} cmp = _strcmp(command, "env");
 		if (_strcmp(command, "env") == 0)
 		{

@@ -62,52 +62,35 @@ char *non_inter_read_command(void)
  */
 int execute_command(char *command, int num_loop, char *argv)
 {
+	char *full_path = find_path(command), *exec_args[2];
 	pid_t child_pid;
-	int child_exit = 0, status;
-	char *full_path;
-	char *exec_args[2];
+	if (!full_path) {
+	handle_exist_error(num_loop, command, argv);
+	return 127;
+	}
 
-	full_path = find_path(command);
-	if (full_path == NULL)
-	{
-		handle_exist_error(num_loop, command, argv);
-		free(full_path);
-		return (127);
-	} child_pid = fork();
-	if (child_pid == -1)
-	{
-		perror("fork");
-		free(full_path);
-		_exit(-1);
+	child_pid = fork();
+	if (child_pid == -1) {
+	perror("fork");
+	_exit(-1);
 	} else if (child_pid == 0)
 	{
-		exec_args[0] = full_path;
-		exec_args[1] = NULL;
-		if (execve(full_path, exec_args, NULL) == -1)
-		{
-			perror("execve");
-			free(full_path);
-			_exit(127);
-		}
-		free(exec_args[0]);
-		free(exec_args[1]);
-		free(full_path);
-		return (0);
-	} else if (child_pid > 0)
+	exec_args[0] = full_path;
+	exec_args[1] = NULL;
+	execve(full_path, exec_args, NULL);
+	perror("execve");
+	_exit(127);
+	} else
 	{
-		if (waitpid(child_pid, &status, 0) == -1)
-		{
-			perror("waitpid");
-			free(full_path);
-			_exit(-1);
-		} else if (WIFEXITED(status))
-		{
-			free(full_path);
-			child_exit = WEXITSTATUS(status);
-		}
+	int status;
+	if (waitpid(child_pid, &status, 0) == -1) {
+	    perror("waitpid");
+	    _exit(-1);
 	}
 	free(full_path);
-	return (child_exit);
+	exec_args[0] = NULL;
+	return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
+	}
 }
 /**
  *find_path - find path for command
@@ -154,7 +137,7 @@ char *find_path(char *command)
 		{
 			free(path_copy);
 			return (full_path);
-		} free(full_path);
+		}
 		path_token = strtok(NULL, ":");
 	} free(path_copy);
 	return (NULL);
