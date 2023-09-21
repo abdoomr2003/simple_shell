@@ -30,8 +30,10 @@ int main(int argc, char *argv[])
 				handle_exit();
 			} cmp = _strcmp(command, "env");
 		if (_strcmp(command, "env") == 0)
+		{
 			handle_env();
-		cmp = _strcmp(command, "clear");
+			continue;
+		} cmp = _strcmp(command, "clear");
 			if (cmp == 0)
 			{
 				free(command);

@@ -125,7 +125,7 @@ char *find_path(char *command)
 			return (_strdup(command));
 		return (NULL);
 	}
-	path_token = _strtok(path_copy, ":");
+	path_token = strtok(path_copy, ":");
 	if (path_token == NULL)
 	{
 		free(path_copy);
@@ -148,7 +148,7 @@ char *find_path(char *command)
 			free(path_copy);
 			return (full_path);
 		} free(full_path);
-		path_token = _strtok(NULL, ":");
+		path_token = strtok(NULL, ":");
 	} free(path_copy);
 	return (NULL);
 }
