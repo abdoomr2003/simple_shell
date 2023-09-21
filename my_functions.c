@@ -105,43 +105,34 @@ int _strncmp(const char *s1, const char *s2, size_t n)
  */
 char *my_strtok(char *str, const char *delim)
 {
-
 	static char *token_ptr;
 	char *token_start;
 
 	/* If str is provided, update the static pointer */
 	if (str)
 		token_ptr = str;
-
 	/* If the pointer is NULL, return NULL (no more tokens) */
 	if (!token_ptr)
-		return NULL;
-
+		return (NULL);
 	token_ptr = NULL;  /* Keeps track of the last token */
 	token_start = str;
-
 	token_ptr = NULL;
 	/* If str is not provided, continue tokenizing from the last position */
 	if (!str)
 		str = token_ptr;
-
-
 	/* Skip leading delimiters */
 	while (*token_ptr && strchr(delim, *token_ptr))
 		token_ptr++;
-
 	/* If we've reached the end of the string, return NULL */
 	if (*token_ptr == '\0')
-		return NULL;
-
+		return (NULL);
 	/* Find the end of the token */
 	token_start = token_ptr;
 	while (*token_ptr && !strchr(delim, *token_ptr))
 		token_ptr++;
-
-
-	/* If this is not the end of the string, replace the delimiter with a null character */
-	if (*token_ptr != '\0') {
+	/* If this is not the end of the str, replace the delim with a null char*/
+	if (*token_ptr != '\0')
+	{
 		*token_ptr = '\0';
 		token_ptr++;
 	/* If this is not the end of the str, replace the delim with a null char */
@@ -150,8 +141,7 @@ char *my_strtok(char *str, const char *delim)
 		*str = '\0';
 		str++;
 	}
-
-	return token_start;
+	return (token_start);
 	}
 	return (NULL);
 }
