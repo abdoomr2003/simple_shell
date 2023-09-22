@@ -114,6 +114,7 @@ char *find_path(char *command)
 	char *path_value = NULL,  *path_token = NULL;
 	char *path_copy = NULL, *full_path = NULL;
 
+	command = remove_spaces(command);
 	if (command[0] == '/' || command[0] == '.')
 	{
 		if (access(command, F_OK) == 0)
@@ -153,7 +154,18 @@ char *find_path(char *command)
 	} free(path_copy);
 	return (NULL);
 }
+char *remove_spaces(char *str)
+{
+	char *end;
+	while (*str == ' ')
+		str++;
+	end = str + strlen(str) - 1;
+	while (end >= str && *end == ' ')
+		end--;
+	*(end + 1) = '\0';
 
+    return str;
+}
 
 
 
