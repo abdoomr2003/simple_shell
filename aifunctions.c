@@ -111,20 +111,21 @@ int execute_command(char *command, int num_loop, char *argv)
 */
 char *find_path(char *command)
 {
-	char *path_value = get_environment_variable("PATH");
-	char *path_copy, *path_token, *full_path = NULL;
+	char *path_value = NULL,  *path_token = NULL;
+	char *path_copy = NULL, *full_path = NULL;
 
-	if (command == NULL || path_value == NULL)
-		return (NULL);
-	path_copy = _strdup(path_value);
-	if (path_copy == NULL)
-		return (NULL);
 	if (command[0] == '/' || command[0] == '.')
 	{
 		if (access(command, F_OK) == 0)
 			return (_strdup(command));
 		return (NULL);
 	}
+	path_value = get_environment_variable("PATH");
+	if (command == NULL || path_value == NULL)
+		return (NULL);
+	path_copy = _strdup(path_value);
+	if (path_copy == NULL)
+		return (NULL);
 	path_token = strtok(path_copy, ":");
 	if (path_token == NULL)
 	{
