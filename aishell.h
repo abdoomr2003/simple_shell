@@ -37,7 +37,7 @@ char *read_command(void);
 char *non_inter_read_command(void);
 void handle_env(void);
 void handle_exit(void);
-int execute_command(char *command, int num_loop, char *argv);
+int execute_command(char *command[], int num_loop, char *argv);
 int execute_path(char *full_path[], char *command);
 char *find_path(char *comand);
 void handle_exist_error(int num_loop, char *command, char *argv);

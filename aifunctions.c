@@ -60,17 +60,16 @@ char *non_inter_read_command(void)
  *
  * Return: The exit status of the executed command.
  */
-int execute_command(char *command, int num_loop, char *argv)
+int execute_command(char *command[], int num_loop, char *argv)
 {
 	pid_t child_pid;
 	int child_exit = 0, status;
 	char *full_path;
-	char *exec_args[2];
 
-	full_path = find_path(command);
+	full_path = find_path(command[0]);
 	if (full_path == NULL)
 	{
-		handle_exist_error(num_loop, command, argv);
+		handle_exist_error(num_loop, command[0], argv);
 		free(full_path);
 		return (127);
 	} child_pid = fork();
@@ -81,9 +80,7 @@ int execute_command(char *command, int num_loop, char *argv)
 		_exit(-1);
 	} else if (child_pid == 0)
 	{
-		exec_args[0] = full_path;
-		exec_args[1] = NULL;
-		if (execve(full_path, exec_args, NULL) == -1)
+		if (execve(full_path, command, NULL) == -1)
 		{
 			perror("execve");
 			free(full_path);
@@ -102,9 +99,3 @@ int execute_command(char *command, int num_loop, char *argv)
 	free(full_path);
 	return (child_exit);
 }
-
-
-
-
-
-

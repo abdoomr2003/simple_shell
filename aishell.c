@@ -8,11 +8,11 @@
  */
 int main(int argc, char *argv[])
 {
-	int interactive, num_loop = 1, result, cmp;
-	char *command = NULL;
+	int interactive, num_loop = 1, result, btngan = 0;
+	char *command = NULL, *cmd, *av[50] ;
 	(void)argc;
 	interactive = isatty(0);
-	while (1)
+	while (num_loop)
 	{
 		if (interactive)
 		display_prompt();
@@ -20,32 +20,46 @@ int main(int argc, char *argv[])
 		if (command == NULL)
 		{
 			if (interactive)
-			write(STDOUT_FILENO, "\n", 1);
-			break;
-		} cmp = _strcmp(command, "exit");
+			{
+				write(STDOUT_FILENO, "\n", 1);
+				break;
+			}
 			if (_strcmp(command, "exit") == 0)
 			{
 				free(command);
 				handle_exit();
-			} cmp = _strcmp(command, "env");
+			}
+		}
 		if (_strcmp(command, "env") == 0)
 		{
 			handle_env();
 			free(command);
 			continue;
-		} cmp = _strcmp(command, "clear");
-			if (cmp == 0)
-			{
-				free(command);
-				write(STDOUT_FILENO, "\033[H\033[J", 6);
-				continue;
-			} else
+		}
+		else
 		{
-			result = execute_command(command, num_loop, argv[0]);
-			if (result == -1)
-				perror("fork");
-		} free(command);
-			num_loop++;
-			} free(command);
-			return (0);
+			cmd = strtok(command, " \n");
+			av[btngan++] = cmd;
+			while(cmd != NULL)
+			{
+				for (;btngan < 50; btngan++)
+				{
+					cmd = strtok(NULL, " \n");
+                    if (cmd == NULL)
+                    {
+                        av[btngan] = NULL;
+                        break;
+                    }
+                    av[btngan] = cmd;
+				}
+				result = execute_command(av, num_loop, argv[0]);
+				if (result == -1)
+					perror("fork");
+			}
+		}
+		free(command);
+		num_loop++;
+	}
+	free(command);
+	return (0);
 }
