@@ -102,56 +102,7 @@ int execute_command(char *command, int num_loop, char *argv)
 	free(full_path);
 	return (child_exit);
 }
-/**
- *find_path - find path for command
- *@command: command that given by usr
- *
- *Return: A pointer to the full path of the command if found
- *		or NULL if not found.
-*/
-char *find_path(char *command)
-{
-	char *path_value = get_environment_variable("PATH");
-	char *path_copy, *path_token, *full_path = NULL;
 
-	if (command == NULL || path_value == NULL)
-		return (NULL);
-	path_copy = _strdup(path_value);
-	if (path_copy == NULL)
-		return (NULL);
-	if (command[0] == '/' || command[0] == '.')
-	{
-		if (access(command, F_OK) == 0)
-			return (_strdup(command));
-		return (NULL);
-	}
-	path_token = strtok(path_copy, ":");
-	if (path_token == NULL)
-	{
-		free(path_copy);
-		return (NULL);
-	}
-	while (path_token != NULL)
-	{
-		size_t file_path_len = _strlen(path_token) + _strlen(command) + 2;
-
-		full_path = (char *)malloc(file_path_len);
-		if (full_path == NULL)
-		{
-			free(path_copy);
-			return (NULL);
-		} _strcpy(full_path, path_token);
-		_strcat(full_path, "/");
-		_strcat(full_path, command);
-		if (access(full_path, F_OK) == 0)
-		{
-			free(path_copy);
-			return (full_path);
-		} free(full_path);
-		path_token = strtok(NULL, ":");
-	} free(path_copy);
-	return (NULL);
-}
 
 
 
